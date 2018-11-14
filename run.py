@@ -1,11 +1,10 @@
 from src.main import PrettyPrinter
 
 if __name__ == '__main__':
-    prettyPrinter = PrettyPrinter.classic_pretty_printer()
-    prettyPrinter.update_pprinter_indent(4)
-    groceriesList = ['apples', 'belvita bars', ['hello_one', 'hello_two', 'hello_three'],
-                     'donuts', 'milk (organic)', ['hello_four', ['hello_five']],
-                     'twinkies', 'yogurt']
+    prettyPrinter = PrettyPrinter()
+    user_data = ['apples', 'belvita bars', ['hello_one', 'hello_two', 'hello_three'],
+                 {'id': '8472883', 'name': 'UserName', 'password': 'Password'}, 'milk (organic)',
+                 ['hello_four', ['hello_five']],
+                 'twinkies', 'yogurt']
 
-    output = prettyPrinter.prettify_list(groceriesList, 'groceries list')
-    print(output)
+    output = prettyPrinter.peachy_print(user_data, 'User Data')

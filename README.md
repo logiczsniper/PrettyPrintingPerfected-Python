@@ -19,6 +19,8 @@ groceries_list = ['apples', 'belvita bars', ['hello_one', 'hello_two', 'hello_th
                   'twinkies', 'yogurt']
 
 # Output
+```
+```
 [   'apples',
     'belvita bars',
     ['hello_one', 'hello_two', 'hello_three'],
@@ -28,6 +30,7 @@ groceries_list = ['apples', 'belvita bars', ['hello_one', 'hello_two', 'hello_th
     'twinkies',
     'yogurt']
 ```
+
 
 ###### Extreme
 This is the unique functionality of the package. It completely converts the
@@ -39,6 +42,8 @@ some way. Here is an example:
 groceries_list = ['apples', 'belvita bars', 'donuts', 'milk (organic)']
 
 # Output
+```
+```
 Groceries List
 ______________
 
@@ -59,6 +64,8 @@ pretty strings.
 groceries_list = ['apples', 'belvita bars', 'donuts', 'milk (organic)']
 
 # Output
+```
+```
 Groceries List
 ______________
 
@@ -75,10 +82,12 @@ ______________
 user_data = {'id': '8472883', 'name': 'UserName', 'password': 'Password'}
 
 # Output
+```
+```
 User Data
 ______________
 
-ID -> 8472883
+Id -> 8472883
 Name -> UserName
 Password -> Password
 ```
@@ -95,15 +104,19 @@ It defaults to `False`, resulting in automatic printing.
 3. `iterate_nested`
 This determines whether or not the printer will iterate through each nested
 data structure it finds or completely ignore it and continue.
-4. `indent`
+4. `capitalize`
+This determines whether or not to the printer will automatically capitalize
+strings when printed.
+5. `indent`
 Changing this only effects the output of a regular print action. It determines
 the indent of the classic pretty printed data structure. It defaults to
 0, resulting in no indent.
 
-#### Nested Data Structures
+#### Nested Data Structures (same type)
 If `iterate_nested` is set to `True`(see above), nested data structures
-are treated as if they are not nested at all; the output will closely
-resemble the same data structure with no nesting. Here is an example:
+of the same type are treated as if they are not nested at all;
+the output will closely resemble the same data structure with no
+nesting. Here is an example:
 
 ```python
 # Input
@@ -112,7 +125,9 @@ groceries_list = ['apples', 'belvita bars', ['hello_one', 'hello_two', 'hello_th
                   'twinkies', 'yogurt']
 
 # Output
-Groceries list
+```
+```
+Groceries List
 ______________
 
 1) Apples
@@ -127,4 +142,28 @@ ______________
 10) Twinkies
 11) Yogurt
 
+```
+
+#### Nested Data Structures (different type)
+If `iterate_nested` is set to `True`(see above), nested data structures
+of different types automatically separate themselves from each other and
+are printed in their own blocks. Here is an example:
+
+```python
+# Input
+nested_data = ['apples', {'id': '8472883', 'name': {'hello': 'world'}, 'password': 'Password'}, 'donuts', 'milk (organic)']
+
+# Output
+```
+```
+Nested Party
+_____
+
+1) Apples
+2) Donuts
+3) Milk (organic)
+
+Id -> 8472883
+Hello -> world
+Password -> Password
 ```

@@ -1,38 +1,42 @@
-import pprint
+from pprint import PrettyPrinter
 
 
-class PrettyPrinter:
+class PeachyPrinter:
 
     def __init__(self, regular_print=False, return_string=False, iterate_nested=True, capitalize=True, indent=1):
+        """
+        Set up printer with provided printing defaults.
+
+        :param regular_print: if True, the pprint printer is used.
+        :type: bool
+
+        :param return_string: if True, the printer will return the string rather than print it.
+        :type: bool
+
+        :param iterate_nested: if False, the printer will completely ignore nested data structures.
+        :type: bool
+
+        :param capitalize: if False, elements will NOT be capitalized.
+        :type: bool
+
+        :param indent: set the indent of the built in pprint Pretty Printer.
+        :type: int
+        """
 
         self.regular_print = regular_print
         self.return_string = return_string
         self.iterate_nested = iterate_nested
         self.capitalize = capitalize
-
-        self.pprint_printer = pprint.PrettyPrinter(indent=indent)
-
-    def update_regular_print_status(self, new_status):
-
-        assert type(new_status) == bool
-        self.regular_print = new_status
-
-    def update_return_string_status(self, new_status):
-
-        assert type(new_status) == bool
-        self.return_string = new_status
-
-    def update_pprinter_indent(self, new_indent):
-
-        assert type(new_indent) == int
-        self.pprint_printer._indent_per_level = new_indent
-
-    @classmethod
-    def classic_pretty_printer(cls):
-
-        return cls(True, True)
+        self.pprint_printer = PrettyPrinter(indent=indent)
 
     def output(self, data):
+        """
+        Handles output based on self.return_string
+
+        :param data: the data that will be either printed or returned.
+
+        :return: if self.return_string is True, the data is returned.
+        """
 
         if self.return_string:
             return data
@@ -40,6 +44,15 @@ class PrettyPrinter:
             print(data)
 
     def iterate_through_list(self, input_list):
+        """
+        Iterates through a list as its own method so that it can be recursive. Builds an output pattern to be used by
+        other methods.
+
+        :param input_list: the list to be iterated through.
+        :type: list
+
+        :return: the output string pattern to be used by other methods.
+        """
 
         output = str()
         nested_dicts = list()
@@ -69,6 +82,15 @@ class PrettyPrinter:
         return output
 
     def iterate_through_dict(self, input_dict):
+        """
+        Iterates through a dict as its own method so that it can be recursive. Builds an output pattern to be used by
+        other methods.
+
+        :param input_dict: the dict to be iterated through.
+        :type: dict
+
+        :return: the output string pattern to be used by other methods.
+        """
 
         output = str()
         nested_lists = list()
@@ -102,6 +124,17 @@ class PrettyPrinter:
         return output
 
     def prettify_list(self, input_list, output_title):
+        """
+        Uses self.iterate_through_list to prettify a list.
+
+        :param input_list: the list to be prettified.
+        :type: list
+
+        :param output_title: the title that will be used for the output list.
+        :type: str
+
+        :return: if self.regular_print is True && self.return_string is True, return the pprint Printer output.
+        """
 
         if not self.regular_print:
 
@@ -124,6 +157,17 @@ class PrettyPrinter:
                 self.pprint_printer.pprint(input_list)
 
     def prettify_dict(self, input_dict, output_title):
+        """
+        Uses self.iterate_through_dict to prettify a dict.
+
+        :param input_dict: the dict to be prettified.
+        :type: dict
+
+        :param output_title: the title that will be used for the output dict.
+        :type: str
+
+        :return: if self.regular_print is True && self.return_string is True, return the pprint Printer output.
+        """
 
         if not self.regular_print:
 
@@ -139,6 +183,15 @@ class PrettyPrinter:
                 self.pprint_printer.pprint(input_dict)
 
     def peachy_print(self, input_data, output_title):
+        """
+        Uses two methods above, recognises input data type, uses appropriate method.
+
+        :param input_data: the data structure to be prettified.
+        :type: list || dict
+
+        :param output_title: the title that will be applied to the output.
+        :type: str
+        """
 
         if type(input_data) == list:
             self.prettify_list(input_data, output_title)
@@ -146,3 +199,9 @@ class PrettyPrinter:
             self.prettify_dict(input_data, output_title)
         else:
             self.output(input_data)
+
+    @classmethod
+    def classic_pretty_printer(cls):
+        """ Provides a quick way to set up a pprint Printer. """
+
+        return cls(True, True)

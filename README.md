@@ -57,7 +57,7 @@ ______________
 There are a range of functions to convert specific data structures into
 pretty strings.
 
-###### prettify_list()
+###### prettify_list(data, outputTitle)
 
 ```python
 # Input
@@ -75,7 +75,7 @@ ______________
 4) Milk (organic)
 ```
 
-###### prettify_dict()
+###### prettify_dict(data, outputTitle)
 
 ```python
 # Input
@@ -92,12 +92,12 @@ Name -> UserName
 Password -> Password
 ```
 
-###### peachy_print()
+###### peachy_print(data, outputTitle)
 There is also the option to use this method, which automatically detects which of the above
 functions to use in order to prettify the input data structure.
 
 #### Defaults
-The user can modify the two defaults.
+The user can modify a few defaults.
 1. `regular_print`
 This determines whether or not to convert to a normal pretty print string
 or to an extreme version which only this package offers. It defaults to

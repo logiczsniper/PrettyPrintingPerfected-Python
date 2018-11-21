@@ -39,29 +39,6 @@ class PrettyPrinter:
         elif not self.return_string:
             print(data)
 
-    # TODO: build functions that iterate through the entire data structure, returning a list of lists found and a list
-    # TODO: dicts found
-    # TODO: take output from above method, combine the data structures into one big list/ one big dict. Use these.
-
-    def get_nested_structures(self, input_data):
-
-        all_lists = list()
-        all_dicts = list()
-
-        for element in input_data:
-
-            if type(element) == list:
-                all_lists.append(element)
-                output = self.get_nested_structures(element)
-                all_lists.extend(output)
-
-            elif type(element) == dict:
-                all_lists.append(element)
-                output = self.get_nested_structures(element)
-                all_dicts.extend(output)
-
-        return [all_lists, all_dicts]
-
     def iterate_through_list(self, input_list):
 
         output = str()
@@ -100,13 +77,17 @@ class PrettyPrinter:
 
             if type(value) == dict:
                 if self.iterate_nested:
-                    nested_dict_output = self.iterate_through_dict(value)
-                    output += nested_dict_output
+                    try:
+                        output += self.prettify_dict(value, key)
+                    except TypeError:
+                        pass
                 else:
                     continue
             elif type(value) == list:
-                nested_lists.append(value)
-                continue
+                try:
+                    output += self.prettify_list(value, key)
+                except TypeError:
+                    pass
             else:
                 if self.capitalize:
                     key = key if type(key) != str else key.capitalize()
@@ -158,8 +139,6 @@ class PrettyPrinter:
                 self.pprint_printer.pprint(input_dict)
 
     def peachy_print(self, input_data, output_title):
-
-        print(self.get_nested_structures(input_data))
 
         if type(input_data) == list:
             self.prettify_list(input_data, output_title)

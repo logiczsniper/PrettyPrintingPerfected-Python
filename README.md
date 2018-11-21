@@ -92,6 +92,10 @@ Name -> UserName
 Password -> Password
 ```
 
+###### peachy_print()
+There is also the option to use this method, which automatically detects which of the above
+functions to use in order to prettify the input data structure.
+
 #### Defaults
 The user can modify the two defaults.
 1. `regular_print`
@@ -151,19 +155,38 @@ are printed in their own blocks. Here is an example:
 
 ```python
 # Input
-nested_data = ['apples', {'id': '8472883', 'name': {'hello': 'world'}, 'password': 'Password'}, 'donuts', 'milk (organic)']
-
+    user_data = ['apples', 'belvita bars', ['hello_one', 'hello_two', 'hello_three'],
+                 {'id': '8472883', 'name': 'UserName', 'password': 'Password'}, 'milk (organic)',
+                 ['hello_four', ['hello_five']],
+                 'twinkies', 'yogurt', {'id': '456', 'name': ['item one', 'item two', 'item three'], 'password': 'yo'}]
 # Output
 ```
 ```
-Nested Party
-_____
+Name
+____
+
+1) Item one
+2) Item two
+3) Item three
+
+User data
+_________
 
 1) Apples
-2) Donuts
-3) Milk (organic)
+2) Belvita bars
+3) Hello_one
+4) Hello_two
+5) Hello_three
+6) Milk (organic)
+7) Hello_four
+8) Hello_five
+9) Twinkies
+10) Yogurt
 
 Id -> 8472883
-Hello -> world
+Name -> UserName
 Password -> Password
+
+Id -> 456
+Password -> yo
 ```

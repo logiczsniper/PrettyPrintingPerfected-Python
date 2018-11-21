@@ -34,8 +34,10 @@ class PeachyPrinter:
         Handles output based on self.return_string
 
         :param data: the data that will be either printed or returned.
+        :type: str
 
         :return: if self.return_string is True, the data is returned.
+        :rtype: str
         """
 
         if self.return_string:
@@ -43,25 +45,26 @@ class PeachyPrinter:
         elif not self.return_string:
             print(data)
 
-    def iterate_through_list(self, input_list):
+    def iterate_sequence(self, input_sequence):
         """
-        Iterates through a list as its own method so that it can be recursive. Builds an output pattern to be used by
-        other methods.
+        Iterates through a sequence as its own method so that it can be recursive. Builds an output pattern to be used
+        by other methods.
 
-        :param input_list: the list to be iterated through.
-        :type: list
+        :param input_sequence: the sequence to be iterated through.
+        :type: list || tuple
 
         :return: the output string pattern to be used by other methods.
+        :rtype: str
         """
 
         output = str()
         nested_dicts = list()
 
-        for element in input_list:
+        for element in input_sequence:
 
-            if type(element) == list:
+            if type(element) == list or type(element) == tuple:
                 if self.iterate_nested:
-                    nested_list_output = self.iterate_through_list(element)
+                    nested_list_output = self.iterate_sequence(element)
                     output += nested_list_output
                 else:
                     continue
@@ -90,6 +93,7 @@ class PeachyPrinter:
         :type: dict
 
         :return: the output string pattern to be used by other methods.
+        :rtype: str
         """
 
         output = str()
@@ -105,9 +109,9 @@ class PeachyPrinter:
                         pass
                 else:
                     continue
-            elif type(value) == list:
+            elif type(value) == list or type(value) == tuple:
                 try:
-                    output += self.prettify_list(value, key)
+                    output += self.prettify_sequence(value, key)
                 except TypeError:
                     pass
             else:
@@ -118,27 +122,28 @@ class PeachyPrinter:
 
         if self.iterate_nested:
             for nested_list in nested_lists:
-                nested_list_output = self.iterate_through_list(nested_list)
+                nested_list_output = self.iterate_sequence(nested_list)
                 output += "\n" + nested_list_output
 
         return output
 
-    def prettify_list(self, input_list, output_title):
+    def prettify_sequence(self, input_sequence, output_title):
         """
         Uses self.iterate_through_list to prettify a list.
 
-        :param input_list: the list to be prettified.
-        :type: list
+        :param input_sequence: the sequence to be prettified.
+        :type: list || tuple
 
-        :param output_title: the title that will be used for the output list.
+        :param output_title: the title that will be used for the output sequence.
         :type: str
 
         :return: if self.regular_print is True && self.return_string is True, return the pprint Printer output.
+        :rtype: str
         """
 
         if not self.regular_print:
 
-            iter_output = [self.iterate_through_list(input_list).split("\n")]
+            iter_output = [self.iterate_sequence(input_sequence).split("\n")]
 
             for counter, element in enumerate(iter_output[0]):
                 iter_output[0][counter] = element.format(counter + 1)
@@ -152,9 +157,9 @@ class PeachyPrinter:
         elif self.regular_print:
 
             if self.return_string:
-                return self.pprint_printer.pformat(input_list)
+                return self.pprint_printer.pformat(input_sequence)
             elif not self.return_string:
-                self.pprint_printer.pprint(input_list)
+                self.pprint_printer.pprint(input_sequence)
 
     def prettify_dict(self, input_dict, output_title):
         """
@@ -167,6 +172,7 @@ class PeachyPrinter:
         :type: str
 
         :return: if self.regular_print is True && self.return_string is True, return the pprint Printer output.
+        :rtype: str
         """
 
         if not self.regular_print:
@@ -187,14 +193,14 @@ class PeachyPrinter:
         Uses two methods above, recognises input data type, uses appropriate method.
 
         :param input_data: the data structure to be prettified.
-        :type: list || dict
+        :type: list || dict || tuple
 
         :param output_title: the title that will be applied to the output.
         :type: str
         """
 
-        if type(input_data) == list:
-            self.prettify_list(input_data, output_title)
+        if type(input_data) == list or type(input_data) == tuple:
+            self.prettify_sequence(input_data, output_title)
         elif type(input_data) == dict:
             self.prettify_dict(input_data, output_title)
         else:

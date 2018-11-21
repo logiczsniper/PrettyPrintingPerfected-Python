@@ -1,6 +1,9 @@
 from pprint import PrettyPrinter
 
 
+# TODO: fix minor bug; new lines at end of output
+
+
 class PeachyPrinter:
 
     def __init__(self, regular_print=False, return_string=False, iterate_nested=True, capitalize=True, indent=1):
@@ -51,7 +54,7 @@ class PeachyPrinter:
         by other methods.
 
         :param input_sequence: the sequence to be iterated through.
-        :type: list || tuple
+        :type: list || tuple || set
 
         :return: the output string pattern to be used by other methods.
         :rtype: str
@@ -59,28 +62,35 @@ class PeachyPrinter:
 
         output = str()
         nested_dicts = list()
+        nested_sets = list()
 
         for element in input_sequence:
 
             if type(element) == list or type(element) == tuple:
                 if self.iterate_nested:
                     nested_list_output = self.iterate_sequence(element)
-                    output += nested_list_output
+                    output += f'\n{nested_list_output}'
                 else:
                     continue
             elif type(element) == dict:
                 nested_dicts.append(element)
                 continue
+            elif type(element) == set:
+                nested_sets.append(element)
+                continue
             else:
                 if self.capitalize:
                     element = element if type(element) != str else element.capitalize()
-
-                output += "{})" + f" {element}\n"
+                if type(input_sequence) == set:
+                    output += "-" + f" {element}\n"
+                else:
+                    output += "{})" + f" {element}\n"
 
         if self.iterate_nested:
             for nested_dict in nested_dicts:
-                nested_dict_output = self.iterate_through_dict(nested_dict)
-                output += "\n" + nested_dict_output
+                output += "\n" + self.iterate_through_dict(nested_dict)
+            for nested_set in nested_sets:
+                output += "\n" + self.iterate_sequence(nested_set)
 
         return output
 
@@ -97,7 +107,8 @@ class PeachyPrinter:
         """
 
         output = str()
-        nested_lists = list()
+        nested_lists = dict()
+        nested_sets = dict()
 
         for key, value in zip(input_dict.keys(), input_dict.values()):
 
@@ -110,10 +121,9 @@ class PeachyPrinter:
                 else:
                     continue
             elif type(value) == list or type(value) == tuple:
-                try:
-                    output += self.prettify_sequence(value, key)
-                except TypeError:
-                    pass
+                nested_lists[key] = value
+            elif type(value) == set:
+                nested_sets[key] = value
             else:
                 if self.capitalize:
                     key = key if type(key) != str else key.capitalize()
@@ -121,9 +131,12 @@ class PeachyPrinter:
                 output += f"{key} -> {value}\n"
 
         if self.iterate_nested:
-            for nested_list in nested_lists:
-                nested_list_output = self.iterate_sequence(nested_list)
-                output += "\n" + nested_list_output
+            for nested_list_name, nested_list in zip(nested_lists.keys(), nested_lists.values()):
+                output += "\n"
+                self.prettify_sequence(nested_list, nested_list_name)
+            for nested_set_name, nested_set in zip(nested_sets.keys(), nested_sets.values()):
+                output += "\n"
+                self.prettify_sequence(nested_set, nested_set_name)
 
         return output
 
@@ -132,7 +145,7 @@ class PeachyPrinter:
         Uses self.iterate_through_list to prettify a list.
 
         :param input_sequence: the sequence to be prettified.
-        :type: list || tuple
+        :type: list || tuple || set
 
         :param output_title: the title that will be used for the output sequence.
         :type: str
@@ -143,12 +156,20 @@ class PeachyPrinter:
 
         if not self.regular_print:
 
-            iter_output = [self.iterate_sequence(input_sequence).split("\n")]
+            if type(input_sequence) != set:
 
-            for counter, element in enumerate(iter_output[0]):
-                iter_output[0][counter] = element.format(counter + 1)
+                iter_output = [self.iterate_sequence(input_sequence).split("\n")]
 
-            full_output = "\n".join(iter_output[0])
+                for counter, element in enumerate(iter_output[0]):
+                    iter_output[0][counter] = element.format(counter + 1)
+
+                full_output = "\n".join(iter_output[0])
+
+            else:
+
+                full_output = self.iterate_sequence(input_sequence)
+
+            output_title = str(output_title)
 
             output_string = f"{output_title.capitalize()} \n{'_' * len(output_title)}\n\n" \
                             f"{full_output}"
@@ -193,13 +214,13 @@ class PeachyPrinter:
         Uses two methods above, recognises input data type, uses appropriate method.
 
         :param input_data: the data structure to be prettified.
-        :type: list || dict || tuple
+        :type: list || dict || tuple || set
 
         :param output_title: the title that will be applied to the output.
         :type: str
         """
 
-        if type(input_data) == list or type(input_data) == tuple:
+        if type(input_data) == list or type(input_data) == tuple or type(input_data) == set:
             self.prettify_sequence(input_data, output_title)
         elif type(input_data) == dict:
             self.prettify_dict(input_data, output_title)

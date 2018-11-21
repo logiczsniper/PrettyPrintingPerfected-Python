@@ -155,10 +155,10 @@ are printed in their own blocks. Here is an example:
 
 ```python
 # Input
-    user_data = ['apples', 'belvita bars', ['hello_one', 'hello_two', 'hello_three'],
-                 {'id': '8472883', 'name': 'UserName', 'password': 'Password'}, 'milk (organic)',
-                 ['hello_four', ['hello_five']],
-                 'twinkies', 'yogurt', {'id': '456', 'name': ['item one', 'item two', 'item three'], 'password': 'yo'}]
+user_data = ['apples', 'belvita bars', ['hello_one', 'hello_two', 'hello_three'],
+             {'id': '8472883', 'name': 'UserName', 'password': 'Password'}, 'milk (organic)',
+             ['hello_four', ['hello_five']],
+             'twinkies', 'yogurt', {'id': '456', 'name': ['item one', 'item two', 'item three'], 'password': 'yo'}]
 # Output
 ```
 ```
@@ -189,4 +189,49 @@ Password -> Password
 
 Id -> 456
 Password -> yo
+```
+
+Since sets are unordered, the extremely pretty version of them also are not ordered. Here is another example showing nested tuples and sets:
+```python
+# Input
+data = {5: [3, 4, 5, 6, 7], 'hi': [34, 345, 4], '4': '4', 'tuple': ('in tuple one', 'in tuple two'),
+        'my set': {'one', 'two', 'three', 'one', 5}}
+# Output
+```
+```
+5
+_
+
+1) 3
+2) 4
+3) 5
+4) 6
+5) 7
+
+Hi
+__
+
+1) 34
+2) 345
+3) 4
+
+Tuple
+_____
+
+1) In tuple one
+2) In tuple two
+
+My set
+______
+
+- Three
+- One
+- 5
+- Two
+
+User data
+_________
+
+4 -> 4
+
 ```

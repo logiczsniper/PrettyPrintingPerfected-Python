@@ -31,18 +31,15 @@ class PeachyPrinter:
         self.current_data_type = None
         self.single_output = str()
 
-    def output(self, data):
+    def output(self):
         """
         Handles output based on self.return_string
-
-        :param data: the data that will be either printed or returned.
-        :type: str
 
         :return: if self.return_string is True, the data is returned.
         :rtype: str
         """
 
-        data = data.strip()
+        data = self.single_output.strip()
 
         if self.return_string:
             return data
@@ -179,7 +176,7 @@ class PeachyPrinter:
                 full_output = self.iterate_sequence(input_sequence)
 
             output_title = str(output_title)
-            output_string = f"{output_title.capitalize()} \n{'_' * len(output_title)}\n\n" \
+            output_string = f"{output_title.title()}\n{'_' * len(output_title)}\n\n" \
                             f"{full_output}"
             self.single_output += f'\n{output_string}'
         elif self.regular_print:
@@ -203,7 +200,7 @@ class PeachyPrinter:
         """
 
         if not self.regular_print:
-            output_string = f"{output_title.capitalize()} \n{'_' * len(output_title)}\n\n" \
+            output_string = f"{output_title.title()}\n{'_' * len(output_title)}\n\n" \
                             f"{self.iterate_dict(input_dict)}"
             self.single_output += f'\n{output_string}'
         elif self.regular_print:
@@ -225,13 +222,13 @@ class PeachyPrinter:
 
         self.current_data_type = type(input_data)
         self.single_output = str()
-        if type(input_data) in [list, tuple, set]:
+        if self.current_data_type in [list, tuple, set]:
             self.prettify_sequence(input_data, output_title)
-        elif type(input_data) == dict:
+        elif self.current_data_type == dict:
             self.prettify_dict(input_data, output_title)
         else:
-            self.output(input_data)
-        self.output(self.single_output)
+            return str(input_data)
+        return self.output()
 
     @classmethod
     def classic_pretty_printer(cls):

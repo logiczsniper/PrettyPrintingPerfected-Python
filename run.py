@@ -2,8 +2,8 @@ from src.main import PeachyPrinter
 
 if __name__ == '__main__':
     peachyPrinter = PeachyPrinter()
-    data = ['apples', 'belvita bars', ['hello_one', 'hello_two', 'hello_three'],
-            'donuts', 'milk (organic)', ['hello_four', ['hello_five']],
-            'twinkies', 'yogurt']
+    peachyPrinter.return_string = True
+    data = ['item one', 'item two', 'item three']
 
-    output = peachyPrinter.peachy_print(data, 'User Data')
+    output = peachyPrinter.peachy_print(data, 'basic list')
+    print(output)

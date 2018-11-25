@@ -57,7 +57,7 @@ ______________
 There are a range of functions to convert specific data structures into
 pretty strings.
 
-###### prettify_list(data, outputTitle)
+###### prettify_sequence(data, outputTitle)
 
 ```python
 # Input

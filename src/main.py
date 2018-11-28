@@ -61,14 +61,19 @@ class PeachyPrinter:
         output = str()
         nested_dicts = list()
         nested_sets = list()
+        nested_tuples = list()
 
         for element in input_sequence:
 
             if type(element) in [list, tuple]:
-                if self.iterate_nested:
+                if type(input_sequence) == set:
+                    nested_tuples.append(element)
+                    continue
+                elif self.iterate_nested:
                     nested_list_output = self.iterate_sequence(element)
                     if not isinstance(element, self.current_data_type):
-                        output += '\n'
+                        # output += '\n'
+                        pass
                     output += f'{nested_list_output}'
                 else:
                     continue
@@ -94,7 +99,11 @@ class PeachyPrinter:
 
             for nested_set in nested_sets:
 
-                output += "\n" + self.iterate_sequence(nested_set)
+                output += self.iterate_sequence(nested_set)
+
+            for nested_tuple in nested_tuples:
+
+                output += self.iterate_sequence(set(nested_tuple))
 
         return output
 

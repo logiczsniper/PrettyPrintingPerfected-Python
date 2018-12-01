@@ -1,5 +1,15 @@
 ## Pretty Printing Perfected
-A tool for classic pretty printing and extreme pretty printing in one.
+A tool for classic pretty printing and extreme pretty printing in one. <br> <br>
+
+
+```
+__                     .__        __
+'--`      _____________|__| _____/  |_
+ _|,--.   \____ \_  __ \  |/    \   __\\
+/ `)   \  |  |_> >  | \/  |   |  \  |
+\      |  |   __/|__|  |__|___|  /__|
+ '.___/   |__|                 \/
+```
 
 #### Definitions
 For reference in the code and in this file, here is how I define classic

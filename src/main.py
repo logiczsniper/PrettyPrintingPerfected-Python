@@ -30,6 +30,16 @@ class PeachyPrinter:
         self.pprint_printer = PrettyPrinter(indent=indent)
         self.current_data_type = None
         self.single_output = str()
+        self.logo = """
+__                     .__        __   
+'--`      _____________|__| _____/  |_
+ _|,--.   \____ \_  __ \  |/    \   __\\
+/ `)   \  |  |_> >  | \/  |   |  \  |  
+\      |  |   __/|__|  |__|___|  /__|  
+ '.___/   |__|                 \/     
+ 
+    ¬Logan Czernel
+        """
 
     def output(self):
         """

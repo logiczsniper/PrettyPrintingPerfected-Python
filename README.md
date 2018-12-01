@@ -235,3 +235,21 @@ _________
 4 -> 4
 
 ```
+
+#### Full Example
+The following is how this tool is intended to be used:
+```python
+from peachy-print import PeachyPrinter
+
+if __name__ == '__main__':
+    peachyPrinter = PeachyPrinter()
+    data = [('item one', ('in nested tuple', ('hello',), 'yeah'), 'item two',
+             'item three'), 70, 90, 'String', True, None,
+            {'set item one', 'set item two', ('tuple set one', 'tuple set two'), 'set item three'},
+            {'dict list': ['in dict one', 'in dict two', 'in dict three'], 'mighty': 'SEVEN',
+             'username': 'USERNAME'}]
+
+    output = peachyPrinter.peachy_print(data, 'all the data in the world')
+```
+
+This would print the `data` provided with the heading 'All The Data In The World' in a the peachy way.

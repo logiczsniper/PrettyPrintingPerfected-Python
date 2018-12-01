@@ -10,4 +10,4 @@ if __name__ == '__main__':
              'username': 'USERNAME'}]
 
     output = peachyPrinter.peachy_print(data, 'all the data in the world')
-    print(output)
+    print(peachyPrinter.logo)

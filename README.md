@@ -1,11 +1,10 @@
 ## Pretty Printing Perfected
-A tool for classic pretty printing and extreme pretty printing in one. <br> <br>
-
+A tool for classic pretty printing and extreme pretty printing in one. <br>
 
 ```
 __                     .__        __
 '--`      _____________|__| _____/  |_
- _|,--.   \____ \_  __ \  |/    \   __\\
+ _|,--.   \____ \_  __ \  |/    \   __\
 / `)   \  |  |_> >  | \/  |   |  \  |
 \      |  |   __/|__|  |__|___|  /__|
  '.___/   |__|                 \/

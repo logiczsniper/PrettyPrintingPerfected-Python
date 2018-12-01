@@ -94,7 +94,7 @@ user_data = {'id': '8472883', 'name': 'UserName', 'password': 'Password'}
 ```
 ```
 User Data
-______________
+_________
 
 Id -> 8472883
 Name -> UserName
